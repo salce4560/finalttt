@@ -102,7 +102,7 @@ class DB{
 
         return $this->pdo->exec($sql);
     }
-    
+
     public function del($id){
         $sql="DELETE FROM $this->table WHERE ";
 
@@ -130,6 +130,20 @@ function to($url){
     header("location:".$url);
 }
 
+$Total=new DB('total');
+$Bottom=new DB('bottom');
+$Title=new DB('title');
+$Ad=new DB('ad');
+$Mvim=new DB('mvim');
+$Image=new DB('image');
+$News=new DB('news');
+$Admin=new DB('admin');
+$Menu=new DB('menu');
+/* $total=$Total->find(1);
 
+//echo $Total->find(1)['total'];
+echo $total['total'];
+
+print_r($Total->all()); */
 
 ?>
