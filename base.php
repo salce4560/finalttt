@@ -57,15 +57,52 @@ class DB{
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
     public function math($method,$col,...$arg){
+        $sql="SELECT $method($col) FROM $this->table ";
+
+        switch(count($arg)){
+            case 2:
+                foreach($arg[0] as $key => $value){
+                    $tmp[]="`$key`='$value'";
+                }
+
+                $sql .=" WHERE ".implode(" AND ".$arg[0])." ".$arg[1];
+
+            break;
+            case 1:
+                if(is_array($arg[0])){
+                    foreach($arg[0] as $key => $value){
+                        $tmp[]="`$key`='$value'";
+                    }
+                    $sql .= " WHERE ".implode(" AND ".$arg[0]);
+                }else{
+                    $sql .= $arg[1];
+                    
+                }
+            break;
+        }
 
 
         return $this->pdo->query($sql)->fetchColumn();
     }
     public function save($array){
+        if(isset($array['id'])){
+            //update
+            foreach($array[0] as $key => $value){
+                $tmp[]="`$key`='$value'";
+            }
+            $sql="UPDATE $this->table 
+                     SET ".implode(",",$tmp)."
+                   WHERE `id`='{$array['id']}'";
+        }else{
+            //insert
 
+            $sql="INSERT INTO $this->table (`".implode("`,`",array_keys($array))."`) 
+                                     VALUES('".implode("','",$array)."')";
+        }
 
         return $this->pdo->exec($sql);
     }
+    
     public function del($id){
         $sql="DELETE FROM $this->table WHERE ";
 
