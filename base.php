@@ -87,7 +87,7 @@ class DB{
     public function save($array){
         if(isset($array['id'])){
             //update
-            foreach($array[0] as $key => $value){
+            foreach($array as $key => $value){
                 $tmp[]="`$key`='$value'";
             }
             $sql="UPDATE $this->table 
@@ -145,5 +145,13 @@ $Menu=new DB('menu');
 echo $total['total'];
 
 print_r($Total->all()); */
+
+if(!isset($_SESSION['total'])){
+    $total=$Total->find(1);
+    $total['total']++;
+    $Total->save($total);
+    $_SESSION['total']=$total['total'];
+}
+
 
 ?>
