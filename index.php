@@ -1,127 +1,142 @@
-<?php
-include_once "base.php";
-
-
-?>
-
-<!DOCTYPE html
-    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0040)http://127.0.0.1/test/exercise/collage/? -->
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
-    <title>卓越科技大學校園資訊系統</title>
-    <link href="./css/css.css" rel="stylesheet" type="text/css">
-    <script src="./js/jquery-1.9.1.min.js"></script>
-    <script src="./js/js.js"></script>
 </head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        overflow-x: hidden;
+
+    }
+
+    .picture {
+        background-image: url("./img/01B01.jpg");
+        width: 800px;
+        height: 588px;
+        transition: all 2s -.2s;
+        background-size: cover;
+    }
+
+    #space {
+        width: 100%;
+        height: 600px;
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: center;
+    }
+
+    #space1 {
+        width: 40%;
+        height: 300px;
+        background-color: rgb(239, 238, 241);
+        margin: -30px;
+        z-index: 1;
+    }
+
+    #space2 {
+        margin-top: 90px;
+        z-index: 2;
+        font-family: Fantasy;
+        font-size: 30px;
+    }
+
+    .word {
+        font-size: 20px;
+        margin-left: 15px;
+    }
+    .word1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 200px;
+        margin-left: 200px;
+        margin-right: 200px;
+    }
+    .father{
+        display: flex;
+        justify-content: center;
+    }
+    .exprience{  
+        border: 30px #f8f9fa solid;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        height: 400px;
+    }
+    .exprience1{  
+        border: 30px #f8f9fa solid;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        height: 400px;
+        font-size: large;
+    }
+    .borderbox{
+        border-right: 10px #f8f9fa solid;
+        width: 50%;
+        height: 300px;
+    }
+
+    #dog {
+        margin: 3px;
+    }
+
+    #dogg {
+        margin: 3px;
+    }
+    .toTop{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 20px;
+    }
+</style>
 
 <body>
-    <div id="cover" style="display:none; ">
-        <div id="coverr">
-            <a style="position:absolute; right:3px; top:4px; cursor:pointer; z-index:9999;"
-                onclick="cl(&#39;#cover&#39;)">X</a>
-            <div id="cvr" style="position:absolute; width:99%; height:100%; margin:auto; z-index:9898;"></div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.php?do=loggin">登入 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?do=reg">註冊</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="back.php">後台</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
         </div>
-    </div>
-    <div id="main">
-    <?php include "front/header.php";?>
-        <div id="ms">
-            <div id="lf" style="float:left;">
-                <div id="menuput" class="dbor">
-                    <!--主選單放此-->
-                    <span class="t botli">主選單區</span>
-                    <?php
-                        $mains=$Menu->all(['parent'=>0,'sh'=>1]);
-                        foreach($mains as $main){
-                            echo "<div class='mainmu'>";
-                            echo "<a href='{$main['href']}'>";
-                            echo $main['name'];
-                            echo "</a>";
-                            if($Menu->math('count','*',['parent'=>$main['id']])>0){
-                                $subs=$Menu->all(['parent'=>$main['id']]);
-                                echo "<div class='mw'>";
-                                foreach ($subs as $sub) {
-                                    echo "<div class='mainmu2'>";
-                                    echo "<a href='{$sub['href']}'>{$sub['name']}</a>";
-                                    echo "</div>";
-                                }
-                                echo "</div>";
-                            }
-                            echo "</div>";
-                        }
+    </nav>
+    <?php
+    $do=isset($_GET["do"])?$_GET["do"]:'my';
+    $file="./front/".$do.".php";
+    if (file_exists($file)) {
+        include $file;
+    }else{
+        include "./front/my.php";
+    }
+    ?>
 
-
-                    ?>
-
-
-                </div>
-                <div class="dbor" style="margin:3px; width:95%; height:20%; line-height:100px;">
-                    <span class="t">進站總人數 :<?=$Total->find(1)['total'];?></span>
-                </div>
-            </div>
-            <?php
-				
-				$do=isset($_GET["do"])?$_GET["do"]:'main';
-				$file="./front/".$do.".php";
-				if(file_exists($file)){
-					include $file;
-				}else{
-					//echo "檔案不存在";
-					include "./front/main.php";
-				}	
-				?>
-
-            <div class="di di ad" style="height:540px; width:23%; padding:0px; margin-left:22px; float:left; ">
-                <!--右邊-->
-                <button style="width:100%; margin-left:auto; margin-right:auto; margin-top:2px; height:50px;"
-                    onclick="lo(&#39;?do=login&#39;)">管理登入</button>
-                <div style="width:89%; height:480px;" class="dbor">
-                    <span class="t botli">校園映象區</span>
-                        <div class="t" onclick="pp(1)"><img src="icon/up.jpg"></div>
-                        <?php 
-                            $imgs=$Image->all(['sh'=>1]);
-                            foreach($imgs as $key => $img){
-                        ?>
-                        <div class="im cent" id="ssaa<?=$key;?>">
-                            <img src="img/<?=$img['img'];?>" style="width:150px;height:103px;border:3px solid orange;margin:1px">
-                        </div>
-                        <?php 
-                            }
-                        ?>
-                        <div class="t" class="t" onclick="pp(2)"><img src="icon/dn.jpg"></div>
-
-                    <script>
-                    var nowpage = 0,
-                        num = <?=$Image->math("count","*",['sh'=>1]);?>;
-
-                    function pp(x) {
-                        var s, t;
-                        if (x == 1 && nowpage - 1 >= 0) {
-                            nowpage--;
-                        }
-                        if (x == 2 && (nowpage + 3) < num) {
-                            nowpage++;
-                        }
-                        $(".im").hide()
-                        for (s = 0; s <= 2; s++) {
-                            t = s * 1 + nowpage * 1;
-                            $("#ssaa" + t).show()
-                        }
-                    }
-                    pp(1)
-                    </script>
-                </div>
-            </div>
-        </div>
-        <div style="clear:both;"></div>
-        <div
-            style="width:1024px; left:0px; position:relative; background:#FC3; margin-top:4px; height:123px; display:block;">
-            <span class="t" style="line-height:123px;"><?=$Bottom->find(1)['bottom'];?></span>
-        </div>
-    </div>
 
 </body>
 
