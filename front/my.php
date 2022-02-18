@@ -4,6 +4,7 @@ $rows=$Title->find(8);
 echo dd($rows);
 ?>
 <img src="../img/<?= $rows['img']?>" alt="">
+
 <p><?=$rows['text']?></p>
 <div id="space">
         <p id="space2">salce hsieh <br>Portfolio</p>
@@ -35,12 +36,14 @@ echo dd($rows);
 
     <div class="row justify-content-around">
         <div class="col-7" id="dog">
-        <img src="../img/<?= $rows['img']?>" alt="">
-            <p><?=$rows=['text']?></p>
+            <?
+        echo dd($rows);
+        ?>
+            <p><?=$rows['text']?></p>
         </div>
         <div class="col-4" id="dogg">
         <img src="../img/<?= $rows['img']?>" alt="">
-            <p><?=$rows=['text']?></p>
+            <p><?=$rows['text']?></p>
         </div>
 
 
@@ -50,11 +53,11 @@ echo dd($rows);
     <div class="row justify-content-around">
         <div class="col-5" id="dog">
         <img src="../img/<?= $rows['img']?>" alt="">
-            <p><?=$rows=['text']?></p>
+            <p><?=$rows['text']?></p>
         </div>
         <div class="col-5" id="dogg">
         <img src="../img/<?= $rows['img']?>" alt="">
-            <p><?=$rows=['text']?></p>
+            <p><?=$rows['text']?></p>
         </div>
     </div>
     <div>

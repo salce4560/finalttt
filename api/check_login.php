@@ -5,8 +5,10 @@ $password=$_POST['password']; */
 $sql="SELECT count(*) FROM `account` WHERE `account`='{$_POST['account']}' && `password`='{$_POST['password']}'";
 //echo $sql;
 //SELECT * FROM `account` WHERE `account`='$_POST['account']' && `password`='$_POST['password']'
-$dsn="mysql:host=localhost;charset=utf8;dbname=pri";
-$pdo=new PDO($dsn,'root','');
+//  $dsn="mysql:host=localhost;charset=utf8;dbname=pri";
+ $dsn="mysql:host=localhost;charset=utf8;dbname=s1100415";
+ $pdo=new PDO($dsn,'s1100415','s1100415');
+// $pdo=new PDO($dsn,'user','');
 
 /* echo "<br>";
 $result=$pdo->query($sql);
